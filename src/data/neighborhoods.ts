@@ -1,4 +1,4 @@
-export const neighborhoods = [
+export const neighborhoods =  [
   {
     "slug": "bayberry",
     "name": "Bayberry",
@@ -12,6 +12,13 @@ export const neighborhoods = [
         "ps": [
           "Bayberry was planned in the mid-1950s, with the first sales office opening in 1956. Its original plans included sanitary sewers as well as water and storm drainage. See <a href=\"https://townofclayny.gov/departments/historian/history-mysteries/bayberry-early-years\">Town of Clay history of Bayberry</a>.",
           "Place history does not identify the age, material or condition of a private drain. Confirm those details from records and an inspection."
+        ]
+      },
+      {
+        "h": "Which services does a line in Bayberry usually need to look at?",
+        "ps": [
+          "For a line that clogs on and off, <a href=\"/services/recurring-clogs-and-slow-drains/\">hydro jetting for recurring clogs and slow drains</a> is the first page to read. A kitchen line that smells or backs up is better matched by <a href=\"/services/severe-grease-and-sludge/\">hydro jetting for grease and sludge</a>.",
+          "<a href=\"/services/preventative-maintenance/\">Preventative hydro jetting</a> and <a href=\"/services/mineral-and-scale-deposits/\">mineral buildup</a> cover upkeep and scale, and <a href=\"/guides/how-hydro-jetting-works/\">how hydro jetting works</a> covers the method. The <a href=\"/neighborhood/belgium-clay-side/\">Belgium - Clay Side</a> page covers another part of Clay."
         ]
       },
       {
@@ -58,6 +65,13 @@ export const neighborhoods = [
         "ps": [
           "The town historian places the east side of the Belgium hamlet in Clay, with early settlement on the Seneca River. This page concerns the Clay side only. See <a href=\"https://townofclayny.gov/departments/historian/history-mysteries/hamlet-belgium\">Town of Clay history of Belgium</a>.",
           "Place history does not identify the age, material or condition of a private drain. Confirm those details from records and an inspection."
+        ]
+      },
+      {
+        "h": "Where do the hydro jetting services fit for homes in Belgium - Clay Side?",
+        "ps": [
+          "Think of the services as answers to different questions. <a href=\"/services/recurring-clogs-and-slow-drains/\">Recurring clogs</a> answers why a drain keeps slowing, <a href=\"/services/tree-root-intrusions/\">tree roots</a> answers whether roots are the cause, and <a href=\"/services/severe-grease-and-sludge/\">grease and sludge</a> answers what a kitchen line is carrying.",
+          "If you are weighing options, <a href=\"/guides/hydro-jetting-vs-snaking/\">hydro jetting vs snaking</a> sets the methods side by side, and <a href=\"/services/preventative-maintenance/\">preventative hydro jetting</a> covers staying ahead of a repeat. The <a href=\"/\">Clay hydro jetting page</a> lists all of them. The <a href=\"/neighborhood/bayberry/\">Bayberry</a> page covers another part of Clay."
         ]
       },
       {
