@@ -1,12 +1,64 @@
 ---
-import DetailPage from '../../components/DetailPage.astro';
-import { C, services } from '../../data/pages';
+import Base from '../../layouts/Base.astro';
+import Hero from '../../components/Hero.astro';
+import Callout from '../../components/Callout.astro';
 import { neighborhoods } from '../../data/neighborhoods';
+import { services } from '../../data/pages';
+import { business } from '../../lib/site';
+import { u } from '../../lib/utils';
+import { faqSchema } from '../../lib/seo';
 export function getStaticPaths() { return neighborhoods.map((n) => ({ params: { slug: n.slug }, props: { n } })); }
 const { n } = Astro.props;
-const related = [
-  ...n.related.map((r) => ({ href: `/${C[r] && services.some((s) => s.slug === r) ? 'services' : 'guides'}/${r}/`, label: C[r].h1.replace(/ in Clay, NY$/, '') })),
-  ...neighborhoods.filter((x) => x.slug !== n.slug).map((x) => ({ href: `/neighborhood/${x.slug}/`, label: x.name })),
-];
+const others = neighborhoods.filter((x) => x.slug !== n.slug);
+const crumbs = [{ name: 'Neighborhoods', path: '/neighborhood/' }, { name: n.name, path: `/neighborhood/${n.slug}/` }];
+const heroCrumbs = [{ href: '/neighborhood/', label: 'Neighborhoods' }, { href: `/neighborhood/${n.slug}/`, label: n.name }];
 ---
-<DetailPage path={`/neighborhood/${n.slug}/`} title={n.title} description={n.description} h1={n.h1} intro={n.intro} sections={n.sections} faqs={n.faqs} sources={n.sources} related={related} parent={{ name: 'Neighborhoods', path: '/neighborhood/' }} name={n.name} service={true} />
+<Base title={n.title} description={n.description} path={`/neighborhood/${n.slug}/`} crumbs={crumbs} service={true} extraSchema={[faqSchema(n.faqs)]}>
+  <Hero headline={n.h1} intro={n.heroPs.join(' ')} location={n.name} crumbs={heroCrumbs} />
+  <section class="content-section"><div class="content-inner prose nb">
+    <h2 class="section-title">{n.bodyH2}</h2>
+    {n.bodyPs.map((p) => <p>{p}</p>)}
+    <h3>What Local Property Owners Often Consider</h3>
+    <ul>{n.considerations.map((c) => <li>{c}</li>)}</ul>
+  </div></section>
+  <section class="content-section nb-alt"><div class="content-inner nb">
+    <h2 class="section-title">{n.svcH2}</h2>
+    <p class="nb-lead">{n.svcLead}</p>
+    <div class="nb-svc-grid">{services.map((s) => <a class="nb-svc" href={u(`/services/${s.slug}/`)}><h3>{s.name}</h3><p>{n.svcNotes[s.slug] ?? ''}</p><span class="nb-arrow">Learn more &rarr;</span></a>)}</div>
+  </div></section>
+  <section class="content-section"><div class="content-inner prose nb">
+    <h2 class="section-title">{n.appsH2}</h2>
+    {n.apps.map((a) => (<><h3>{a.h}</h3>{a.ps.map((p) => <p>{p}</p>)}</>))}
+  </div></section>
+  <section class="content-section nb-alt"><div class="content-inner prose nb">
+    <h2 class="section-title">{n.implH2}</h2>
+    {n.implPs.map((p) => <p>{p}</p>)}
+    {n.impl.map((s) => (<><h3>{s.h}</h3>{s.ps.map((p) => <p>{p}</p>)}{s.bullets && <ul>{s.bullets.map((b) => <li>{b}</li>)}</ul>}</>))}
+  </div></section>
+  <section class="content-section"><div class="content-inner nb">
+    <h2 class="section-title">{n.planH2}</h2>
+    <div class="prose">{n.planPs.map((p) => <p>{p}</p>)}</div>
+    <div class="nb-steps">{n.steps.map((s, i) => <div class="nb-step"><span class="nb-num">{String(i + 1).padStart(2, '0')}</span><h3>{s.t}</h3><p>{s.d}</p></div>)}</div>
+  </div></section>
+  <section class="content-section nb-alt"><div class="content-inner prose nb">
+    <h2 class="section-title">{n.mapH2}</h2>
+    <p>{n.mapIntro}</p>
+    <div class="nb-map"><iframe src={`https://www.google.com/maps?q=${encodeURIComponent(n.mapQuery)}&output=embed`} width="100%" height="450" style="border:0;" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title={n.mapTitle}></iframe></div>
+  </div></section>
+  <section class="content-section"><div class="content-inner nb">
+    <h2 class="section-title">{n.nearbyH2}</h2>
+    <p class="nb-lead">{n.nearbyP}</p>
+    {others.length > 0 && <div class="nb-pills">{others.map((o) => <a href={u(`/neighborhood/${o.slug}/`)}>{o.name}</a>)}</div>}
+    <p class="nb-note">The Neighborhoods menu lists every area page on this site.</p>
+  </div></section>
+  <section class="content-section nb-alt"><div class="content-inner nb">
+    <h2 class="section-title">{n.faqH2}</h2>
+    <div class="nb-faq">{n.faqs.map((f) => <article><h3>{f.q}</h3><p>{f.a}</p></article>)}</div>
+  </div></section>
+  <section class="content-section"><div class="content-inner prose nb">
+    <h2 class="section-title">{n.ctaH2}</h2>
+    {n.ctaPs.map((p) => <p>{p}</p>)}
+    <p class="nb-cta"><a class="button-primary" href="#request-service">Request service</a><span>or call <a href={business.phoneHref}>{business.phoneDisplay}</a></span></p>
+  </div></section>
+  <Callout />
+</Base>
